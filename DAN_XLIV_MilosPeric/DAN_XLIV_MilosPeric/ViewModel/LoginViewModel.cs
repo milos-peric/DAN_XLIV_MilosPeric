@@ -53,14 +53,14 @@ namespace DAN_XLIV_MilosPeric.ViewModel
             try
             {
                 string password = (obj as PasswordBox).Password;
-                if (UserName.Equals("Zaposleni") && password.Equals("Zaposleni"))
+                if (UserName.Equals("1") && password.Equals("1"))
                 {
                     ViewEmployeeView employeeView = new ViewEmployeeView();
                     view.Close();
                     employeeView.Show();
                     return;
                 }
-                else if (EntryValidation.ValidateJmbg(UserName) && password.Equals("Gost"))
+                else if (UserName.Equals("2") && password.Equals("2"))
                 {
                     ViewGuestView guestView = new ViewGuestView();
                     view.Close();

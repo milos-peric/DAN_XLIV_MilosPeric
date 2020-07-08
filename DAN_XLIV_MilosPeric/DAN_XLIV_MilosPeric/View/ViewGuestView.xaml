@@ -36,8 +36,8 @@
                       SelectedItem="{Binding PizzaItem, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HeadersVisibility="Column"
                       AutoGenerateColumns="False" ColumnWidth="*" HorizontalAlignment="Left" Margin="35 0 0 0" HorizontalContentAlignment="Center" AlternatingRowBackground="LightGray" Background="#FF9B9B9B" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pizza Name" Width="Auto" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Pizza Name" Width="Auto" Binding="{Binding PizzaName}"/>
+                <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding PIzzaType}"/>
                 <DataGridTextColumn Header="Price" Width="Auto" Binding="{Binding Price}"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.HeaderTemplate>
@@ -58,11 +58,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="myDataGrid2" x:FieldModifier="public" Grid.Row="1" ItemsSource="{Binding SelectedPizzaItems, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding PizzaItem, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HeadersVisibility="Column"
+                      SelectedItem="{Binding PizzaItem2, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HeadersVisibility="Column"
                       AutoGenerateColumns="False" ColumnWidth="*" HorizontalAlignment="Right" Margin="0 0 35 0" HorizontalContentAlignment="Center" AlternatingRowBackground="LightGray" Background="#FF9B9B9B" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Product Name" Width="Auto" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Product Name" Width="Auto" Binding="{Binding PizzaName}"/>
+                <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding PizzaType}"/>
                 <DataGridTextColumn Header="Price" Width="Auto" Binding="{Binding Price}"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.HeaderTemplate>

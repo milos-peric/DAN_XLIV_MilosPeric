@@ -3,6 +3,7 @@ using DAN_XLIV_MilosPeric.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,7 +21,10 @@ namespace DAN_XLIV_MilosPeric.ViewModel
         public GuestViewModel(ViewGuestView guestView)
         {
             view = guestView;
-            selectedPizzaItems = new ObservableCollection<PizzaItems>();
+            pizzaItem = new tblPizzaMenu();
+            pizzaItem2 = new tblSelectedPizza();
+            
+
         }
 
         private double totalPrice;
@@ -35,8 +39,8 @@ namespace DAN_XLIV_MilosPeric.ViewModel
         }
 
 
-        private PizzaItems pizzaItem;
-        public PizzaItems PizzaItem
+        private tblPizzaMenu pizzaItem;
+        public tblPizzaMenu PizzaItem
         {
             get { return pizzaItem; }
             set
@@ -46,8 +50,8 @@ namespace DAN_XLIV_MilosPeric.ViewModel
             }
         }
 
-        private ObservableCollection<PizzaItems> pizzaCollection;
-        public ObservableCollection<PizzaItems> PizzaCollection
+        private List<tblPizzaMenu> pizzaCollection;
+        public List<tblPizzaMenu> PizzaCollection
         {
             get { return pizzaCollection; }
             set
@@ -57,8 +61,19 @@ namespace DAN_XLIV_MilosPeric.ViewModel
             }
         }
 
-        private ObservableCollection<PizzaItems> selectedPizzaItems;
-        public ObservableCollection<PizzaItems> SelectedPizzaItems
+        private tblSelectedPizza pizzaItem2;
+        public tblSelectedPizza PizzaItem2
+        {
+            get { return pizzaItem2; }
+            set
+            {
+                pizzaItem2 = value;
+                OnPropertyChanged("PizzaItem2");
+            }
+        }
+
+        private List<tblSelectedPizza> selectedPizzaItems;
+        public List<tblSelectedPizza> SelectedPizzaItems
         {
             get { return selectedPizzaItems; }
             set
@@ -84,8 +99,32 @@ namespace DAN_XLIV_MilosPeric.ViewModel
 
         public void Load(object obj)
         {
-            PizzaCollection = PizzaItems.Load();
+            PizzaCollection = dBService.GetPizzaMenu();
         }
+
+
+        //private ICommand addCommand;
+        //public ICommand AddCommand
+        //{
+        //    get
+        //    {
+        //        if (addCommand == null)
+        //        {
+                    
+        //            addCommand = new RelayCommand(Add);
+        //            return addCommand;
+        //        }
+        //        return loadCommand;
+        //    }
+        //}
+
+        //public void Add(object obj)
+        //{
+        //    SelectedPizzaItems = new List<tblPizzaMenu>();
+        //    PizzaItem2 = dBService.GetPizzaByID(PizzaItem.ID);
+        //    SelectedPizzaItems.Add(PizzaItem2);
+        //    Debug.WriteLine("Added: " + PizzaItem.PizzaName);
+        //}
 
         private ICommand addItem;
         public ICommand AddItem
@@ -94,21 +133,23 @@ namespace DAN_XLIV_MilosPeric.ViewModel
             {
                 if (addItem == null)
                 {
+                    
                     addItem = new RelayCommand(param => AddItemExecute(), param => CanAddItemExecute());
                 }
                 return addItem;
             }
         }
-
         private void AddItemExecute()
         {
             try
             {
                 if (PizzaItem != null)
                 {
-                    selectedPizzaItems.Add(pizzaItem);
-                    TotalPrice += double.Parse(pizzaItem.Price.Substring(1));
-                    MessageBox.Show($"{pizzaItem.Name} added to cart.", "Success");
+                    //PizzaItem2 = dBService.GetPizzaByID(PizzaItem.ID);
+                    TotalPrice += double.Parse(pizzaItem.Price);
+                    dBService.AddToSelectedMenu(PizzaItem);
+                    SelectedPizzaItems = dBService.GetSelected();
+                    Debug.WriteLine("Added: " + PizzaItem.PizzaName);
                 }
             }
             catch (Exception ex)
@@ -148,8 +189,14 @@ namespace DAN_XLIV_MilosPeric.ViewModel
             {
                 if (PizzaItem != null)
                 {
-                    TotalPrice -= double.Parse(pizzaItem.Price.Substring(1));
-                    selectedPizzaItems.Remove(pizzaItem);
+                    
+                    TotalPrice -= double.Parse(pizzaItem.Price);
+                    if (TotalPrice < 0)
+                    {
+                        TotalPrice = 0;
+                    }
+                    dBService.RemoveSelectedPizza(PizzaItem2.ID);
+                    SelectedPizzaItems = dBService.GetSelected();
                 }
             }
             catch (Exception ex)

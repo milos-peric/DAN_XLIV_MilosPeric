@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +66,33 @@
     </ApplicationDefinition>
     <Compile Include="PizzaItems.cs" />
     <Compile Include="DBService.cs" />
+    <Compile Include="PizzeriaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PizzeriaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PizzeriaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PizzeriaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PizzeriaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrder.cs">
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPizzaMenu.cs">
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPizzaOrder.cs">
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSelectedPizza.cs">
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Validation\EntryValidation.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\GuestViewModel.cs" />
@@ -71,6 +107,9 @@
     </Compile>
     <Compile Include="View\ViewLogin.xaml.cs">
       <DependentUpon>ViewLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vwPizzaShop.cs">
+      <DependentUpon>PizzeriaModel.tt</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +155,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="PizzeriaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PizzeriaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="packages.config" />
+    <None Include="PizzeriaModel.edmx.diagram">
+      <DependentUpon>PizzeriaModel.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,6 +171,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="PizzeriaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PizzeriaModel.Context.cs</LastGenOutput>
+      <DependentUpon>PizzeriaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="PizzeriaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PizzeriaModel.edmx</DependentUpon>
+      <LastGenOutput>PizzeriaModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
